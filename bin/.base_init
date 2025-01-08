@@ -9,6 +9,7 @@ base_dir=`dirname "${base_dir}"`
 cd "${base_dir}"
 
 # Introduce Configuration
+source sample.env
 source ".env"
 
 # Get project directory

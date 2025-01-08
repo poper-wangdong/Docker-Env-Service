@@ -9,11 +9,19 @@ if [ "$1" != "" ] && [ -x "${base_dir}/bin/tools/$1.sh" ]; then
     exit;
 fi
 
-# mac
-mac_ext=""
-if [ `uname -s` == "Darwin" ]; then
-    mac_ext="-f docker-compose.mac.yml"
+# exec 添加额外参数
+if [ "$1" == "exec" ]; then
+    shift
+    docker compose -f docker-compose.yml exec --workdir="${workdir}/${relative_path}" $@
+    exit 
+fi
+
+# run 添加额外参数
+if [ "$1" == "run" ]; then
+    shift
+    docker compose -f docker-compose.yml run --rm --workdir="${workdir}/${relative_path}" $@
+    exit 
 fi
 
 # exec command
-docker-compose -f docker-compose.yml ${mac_ext} $@
+docker compose -f docker-compose.yml $@

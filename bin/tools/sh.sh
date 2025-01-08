@@ -8,7 +8,7 @@ exec_containers=(
     "mongo"
     "mysql"
     "nginx"
-    "php74"
+    "php73"
     "redis"
 )
 
@@ -21,9 +21,9 @@ if [[ "${exec_containers[@]}" =~ "${container_name}" ]]; then
 fi
 
 # 判断使用什么 shell
-shell="sh"
-if [[ "php74" = "${container_name}" ]]; then
-    shell="zsh"
+shell=$3
+if [[ "" = "${shell}" ]]; then
+    shell="sh"
 fi
 
 # 执行进入容器
