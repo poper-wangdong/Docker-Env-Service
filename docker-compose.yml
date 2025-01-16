@@ -166,9 +166,18 @@ services:
     environment:
       KAFKA_BROKER_ID: 0
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_CREATE_TOPICS: "cdc-event:2:0"   #kafka启动后初始化一个有2个partition(分区)0个副本名叫kafeidou的topic 
+      KAFKA_CREATE_TOPICS: "cdc:2:0"   #kafka启动后初始化一个有2个partition(分区)0个副本名叫kafeidou的topic 
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
     depends_on:
       - zookeeper
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672" # 应用程序连接端口
+      - "15672:15672" # 管理界面端口
+    environment:
+      RABBITMQ_DEFAULT_USER: admin # 默认用户名
+      RABBITMQ_DEFAULT_PASS: password # 默认密码
+    restart: always
